@@ -2,16 +2,17 @@
 const backendUrl: string = "http://127.0.0.1:3000"; 
 
 interface QuizQuestion {
+    category: string;
     question: string;
-    correctAnswer: string;
-    incorrectAnswers: string[];
+    correct_answer: string;
+    incorrect_answers: string[];
 }
 
 interface QuizResponse {
     questions: QuizQuestion[];
 }
 
-export const getQuiz = async (category: string): Promise<QuizQuestion[]> => {
+export default async function getQuiz(category: string | null): Promise<QuizQuestion[]> {
 
     try {
 
@@ -27,21 +28,24 @@ export const getQuiz = async (category: string): Promise<QuizQuestion[]> => {
             },
         };
 
-        const response = await fetch(url.toString(), requestOptions);
+        const response: Response = await fetch(url.toString(), requestOptions);
 
-        if (!response.ok) { // This checks for any response status outside the 200-299 range
+        if (!response.ok) {
             throw new Error(`Unable to fetching questions: ${response.statusText}`);
         }
 
         const data: QuizResponse = await response.json();
 
+        // console.log(data)
+        // console.log(data.questions)
         return data.questions;
+
 
     } catch (error) {
 
         console.error("Fetch error:", error);
         throw error; // Allows for catching and handling the error in the component
+    }
 }
-};
 
 
