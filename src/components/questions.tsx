@@ -1,47 +1,38 @@
-import { useState, useEffect } from "react";
-import getQuiz from "../services/questions";
+import { useState, useEffect, MouseEvent } from "react";
+import { QuizQuestion } from "../services/questions";
 
-type QuizQuestion = {
+interface QuizProps {
+    questions: QuizQuestion[] | undefined;
     category: string;
-    question: string;
-    correct_answer: string;
-    incorrect_answers: string[];
+    setCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const Quiz = () => {
+export const Quiz = ({ questions, category, setCategory}: QuizProps) => {
 
-    const [questions, setQuestions] = useState<QuizQuestion[]>();
-    const [category, setCategory] = useState<string>("");
-    // const [currentQuestion, setCurrentQuestion] = useState<number>(0);
-    // const [question, choices, correctAnswer] = questions[currentQuestion];
-
-
-    useEffect(() => {
-        const fetchQuestions = async (): Promise<void> => {
-            try {
-                const questionsData = await getQuiz(category);
-                setQuestions(questionsData)
-
-            } catch (error) {
-            console.error('Error fetching questions:', error);
-        }
+    const chooseCategory = (e: MouseEvent<HTMLButtonElement>): void => {
+        setCategory(e.currentTarget.value)
     };
-    fetchQuestions();
-}, [category]);
 
-    const chooseCategory = (e): void => {
-        setCategory(e.target.value)
-    };
-    
+    const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+
+    if (!questions || questions.length === 0) {
+        return <div>Loading...</div>; // Handle loading state or no questions case
+    }
+
+    const { question, incorrect_answers, correct_answer } = questions[currentQuestion];
+
 
     return (
         <>
             <div className="quiz-container">
-            <h2> Choose category: </h2>
-            <button value="General Knowledge" onClick={chooseCategory}>General Knowledge</button>
-            <button value="History" onClick={chooseCategory}>History</button>
-            <button value="Entertainment: Film" onClick={chooseCategory}>Film</button>
-            <button value="Entertainment: Television" onClick={chooseCategory}>TV</button>
+                <span className="active-question">{currentQuestion + 1}/</span> 
+                <span className="total-questions">{questions.length}</span> 
+
+                <h2> Choose category: </h2>
+                <button value="General Knowledge" onClick={chooseCategory}>General Knowledge</button>
+                <button value="History" onClick={chooseCategory}>History</button>
+                <button value="Entertainment: Film" onClick={chooseCategory}>Film</button>
+                <button value="Entertainment: Television" onClick={chooseCategory}>TV</button>
 
             <p>Selected Category: {category}</p>
 
@@ -55,14 +46,17 @@ export const Quiz = () => {
                             <p> {question.correct_answer} </p>
                             </div>
                             {question.incorrect_answers.map((answer, index) => (
-                            <div> 
-                                <p key={index}>{answer}</p>
+                            <div>
+                                <p 
+                                key={index}>{answer}</p>
                             </div>
                             ))}
                         </ul>
                     </li>
                 ))}
             </ul>
+                {/* <button onClick={prevQuestion} disabled={currentQuestion === 0}>Previous</button>
+                <button onClick={nextQuestion} disabled={currentQuestion === questions.length - 1}>Next</button> */}
             </div>
         </>
     )

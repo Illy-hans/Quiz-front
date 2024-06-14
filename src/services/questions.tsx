@@ -1,7 +1,7 @@
 
 const backendUrl: string = "http://127.0.0.1:3000"; 
 
-interface QuizQuestion {
+export interface QuizQuestion {
     category: string;
     question: string;
     correct_answer: string;
