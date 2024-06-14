@@ -14,6 +14,17 @@ export const Quiz = ({ questions, category, setCategory}: QuizProps) => {
     };
 
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+    const [answerIndex, setAnswerIndex] = useState<number>(0);
+    const [answer, setAnswer] = useState<string>('');
+
+    const onAnswerClick = (answer, index) => {
+        setAnswerIndex(index);
+        if (answer === correct_answer) {
+            setAnswer(true);
+        } else {
+            setAnswer(false)
+        }
+    };
 
     if (!questions || questions.length === 0) {
         return <div>Loading...</div>; // Handle loading state or no questions case
