@@ -14,24 +14,27 @@ export const Quiz = ({ questions, category, setCategory}: QuizProps) => {
     };
 
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
-    const [answerIndex, setAnswerIndex] = useState<number>(0);
-    const [answer, setAnswer] = useState<string>('');
-
-    const onAnswerClick = (answer, index) => {
-        setAnswerIndex(index);
-        if (answer === correct_answer) {
-            setAnswer(true);
-        } else {
-            setAnswer(false)
-        }
-    };
+    const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+    const [showAnswer, setShowAnswer] = useState<boolean>(false);
 
     if (!questions || questions.length === 0) {
         return <div>Loading...</div>; // Handle loading state or no questions case
     }
 
-    const { question, incorrect_answers, correct_answer } = questions[currentQuestion];
+    const handleAnswerClick = (answer: string) => {
+        setSelectedAnswer(answer);
+        setShowAnswer(true);
+      };
+    
+      const handleNextQuestion = () => {
+        setShowAnswer(false);
+        setSelectedAnswer(null);
+        setCurrentQuestion((prev) => prev + 1);
+      };
 
+    const { question, incorrect_answers, correct_answer } = questions[currentQuestion];
+    // randomises order of answers
+    const answers = [...incorrect_answers, correct_answer].sort(() => Math.random() - 0.5);
 
     return (
         <>
@@ -39,33 +42,33 @@ export const Quiz = ({ questions, category, setCategory}: QuizProps) => {
                 <span className="active-question">{currentQuestion + 1}/</span> 
                 <span className="total-questions">{questions.length}</span> 
 
-                <h2> Choose category: </h2>
-                <button value="General Knowledge" onClick={chooseCategory}>General Knowledge</button>
-                <button value="History" onClick={chooseCategory}>History</button>
-                <button value="Entertainment: Film" onClick={chooseCategory}>Film</button>
-                <button value="Entertainment: Television" onClick={chooseCategory}>TV</button>
+                <h1 className="text-h1"> Choose a category </h1><br/> 
+                <div> 
+                <button className="btn bg-primary" value="" onClick={chooseCategory}>Mix it up</button>
+                <button className="btn bg-primary" value="General Knowledge" onClick={chooseCategory}>General Knowledge</button>
+                <button className="btn bg-primary" value="History" onClick={chooseCategory}>History</button>
+                <button className="btn bg-primary" value="Entertainment: Film" onClick={chooseCategory}>Film</button>
+                <button className="btn bg-primary" value="Entertainment: Television" onClick={chooseCategory}>TV</button>
+                <span className="active-question">{currentQuestion + 1}/</span> 
+                <span className="total-questions">{questions.length}</span> 
+                </div>
+                <br/>
 
-            <p>Selected Category: {category}</p>
-
-            <ul>
-
-            {questions.map((question, index) => (
-                    <li key={index}>
-                        <p><strong>Question:</strong> {question.question}</p>
-                        <ul>
-                            <div>
-                            <p> {question.correct_answer} </p>
-                            </div>
-                            {question.incorrect_answers.map((answer, index) => (
-                            <div>
-                                <p 
-                                key={index}>{answer}</p>
-                            </div>
-                            ))}
-                        </ul>
+               <div className="bg-accent">
+                <p className="bg-secondary"><strong>Question:</strong> {question}</p>
+                <ul>
+                    {answers.map((answer, index) => (
+                    <li key={index} className={`btn ${showAnswer && answer === correct_answer ? 'bg-green-500' : 'bg-primary'}`} onClick={() => !showAnswer && handleAnswerClick(answer)}>
+                        {answer}
                     </li>
-                ))}
-            </ul>
+                    ))}
+                </ul>
+                {showAnswer && (
+                    <button className="btn bg-secondary" onClick={handleNextQuestion}>
+                    Next Question
+                    </button>
+                )}
+                </div>
             </div>
         </>
     )

@@ -11,6 +11,7 @@
     "cy:open": "cypress open"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "vitest": "^1.6.0"
