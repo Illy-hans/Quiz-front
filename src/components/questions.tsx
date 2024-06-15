@@ -49,7 +49,7 @@ export const Quiz = ({ questions, category, setCategory}: QuizProps) => {
 
             <ul>
 
-            {questions?.map((question, index) => (
+            {questions.map((question, index) => (
                     <li key={index}>
                         <p><strong>Question:</strong> {question.question}</p>
                         <ul>
@@ -66,8 +66,6 @@ export const Quiz = ({ questions, category, setCategory}: QuizProps) => {
                     </li>
                 ))}
             </ul>
-                {/* <button onClick={prevQuestion} disabled={currentQuestion === 0}>Previous</button>
-                <button onClick={nextQuestion} disabled={currentQuestion === questions.length - 1}>Next</button> */}
             </div>
         </>
     )
