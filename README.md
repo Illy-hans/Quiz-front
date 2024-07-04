@@ -6,4 +6,7 @@ Welcome to Quizzordy(definitely not named after my favourite quiz show).
 - Typescript 
 - React
 - Vite
-- React Testing Library & Vitest
+- Tailwindcss & DaisyUI
+- Node
+- Vitest & Jest 
+[] Cypress for E2E testing. 

@@ -1,13 +1,13 @@
-import { useState, useEffect, MouseEvent } from "react";
+import { useState, MouseEvent } from "react";
 import { QuizQuestion } from "../services/questions";
+import { Result } from "./result";
 
 interface QuizProps {
     questions: QuizQuestion[] | undefined;
-    category: string;
     setCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const Quiz = ({ questions, category, setCategory}: QuizProps) => {
+export const Quiz = ({ questions, setCategory }: QuizProps) => {
 
     const chooseCategory = (e: MouseEvent<HTMLButtonElement>): void => {
         setCategory(e.currentTarget.value)
@@ -16,26 +16,36 @@ export const Quiz = ({ questions, category, setCategory}: QuizProps) => {
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [showAnswer, setShowAnswer] = useState<boolean>(false);
+    const [score, setScore] = useState<number>(0);
 
     if (!questions || questions.length === 0) {
         return <div>Loading...</div>; // Handle loading state or no questions case
     }
 
-    const handleAnswerClick = (answer: string) => {
+    const handleAnswerClick = (answer: string): void => {
         setSelectedAnswer(answer);
         setShowAnswer(true);
-      };
+        if (answer === questions[currentQuestion].correct_answer) {
+            setScore(prev => prev + 1)
+        }
+    };
     
-      const handleNextQuestion = () => {
+    const handleNextQuestion = (): void => {
         setShowAnswer(false);
         setSelectedAnswer(null);
         setCurrentQuestion((prev) => prev + 1);
-      };
+    };
 
     const { question, incorrect_answers, correct_answer } = questions[currentQuestion];
     // randomises order of answers
     const answers = [...incorrect_answers, correct_answer].sort(() => Math.random() - 0.5);
 
+    if (currentQuestion >= questions.length) {
+        return (
+            <Result score={score} />
+        );
+    }
+    
     return (
         <>
             <div className="quiz-container">
@@ -54,7 +64,7 @@ export const Quiz = ({ questions, category, setCategory}: QuizProps) => {
                 </div>
                 <br/>
 
-               <div className="bg-accent">
+            <div className="bg-accent">
                 <p className="bg-secondary"><strong>Question:</strong> {question}</p>
                 <ul>
                     {answers.map((answer, index) => (
@@ -65,7 +75,7 @@ export const Quiz = ({ questions, category, setCategory}: QuizProps) => {
                 </ul>
                 {showAnswer && (
                     <button className="btn bg-secondary" onClick={handleNextQuestion}>
-                    Next Question
+                    {currentQuestion + 1 < questions.length ? 'Next Question' : 'Results'}
                     </button>
                 )}
                 </div>

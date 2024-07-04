@@ -25,7 +25,7 @@ export default function App() {
   return (
     <>
       <div>
-        <Quiz questions={questions} category={category} setCategory={setCategory}/>
+        <Quiz questions={questions} setCategory={setCategory}/>
       </div>
     </>
   )
