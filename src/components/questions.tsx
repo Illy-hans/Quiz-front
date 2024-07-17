@@ -1,6 +1,7 @@
 import { useState, MouseEvent } from "react";
 import { QuizQuestion } from "../services/questions";
 import { Result } from "./result";
+import { CategorySelector } from "./categorySelector";
 
 interface QuizProps {
     questions: QuizQuestion[] | undefined;
@@ -52,19 +53,11 @@ export const Quiz = ({ questions, setCategory }: QuizProps) => {
                 <span className="active-question">{currentQuestion + 1}/</span> 
                 <span className="total-questions">{questions.length}</span> 
 
-                <h1 className="text-h1"> Choose a category </h1><br/> 
-                <div> 
-                <button className="btn bg-primary" value="" onClick={chooseCategory}>Mix it up</button>
-                <button className="btn bg-primary" value="General Knowledge" onClick={chooseCategory}>General Knowledge</button>
-                <button className="btn bg-primary" value="History" onClick={chooseCategory}>History</button>
-                <button className="btn bg-primary" value="Entertainment: Film" onClick={chooseCategory}>Film</button>
-                <button className="btn bg-primary" value="Entertainment: Television" onClick={chooseCategory}>TV</button>
-                <span className="active-question">{currentQuestion + 1}/</span> 
-                <span className="total-questions">{questions.length}</span> 
-                </div>
+                <CategorySelector chooseCategory={chooseCategory}/>
+
                 <br/>
 
-            <div className="bg-accent">
+            <div className="">
                 <p className="bg-secondary"><strong>Question:</strong> {question}</p>
                 <ul>
                     {answers.map((answer, index) => (
