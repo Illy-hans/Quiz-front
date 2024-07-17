@@ -38,6 +38,7 @@ export const Quiz = ({ questions, setCategory }: QuizProps) => {
     };
 
     const { question, incorrect_answers, correct_answer } = questions[currentQuestion];
+
     // randomises order of answers
     const answers = [...incorrect_answers, correct_answer].sort(() => Math.random() - 0.5);
 
@@ -76,6 +77,4 @@ export const Quiz = ({ questions, setCategory }: QuizProps) => {
         </>
     )
 };
-
-// a form with one answer - handleClick - 
 

@@ -15,7 +15,6 @@ interface QuizResponse {
 export default async function getQuiz(category: string | null): Promise<QuizQuestion[]> {
 
     try {
-
         const url: URL = new URL(`${backendUrl}/questions`);
         if (category) {
             url.searchParams.append('category', category);
@@ -44,7 +43,7 @@ export default async function getQuiz(category: string | null): Promise<QuizQues
     } catch (error) {
 
         console.error("Fetch error:", error);
-        throw error; // Allows for catching and handling the error in the component
+        throw error; 
     }
 }
 
