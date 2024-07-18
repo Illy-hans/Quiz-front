@@ -1,8 +1,10 @@
 import { http, HttpHandler, HttpResponse } from 'msw';
+import { randomMockQuizQuestions, sameCategoryQuizQuestions } from './mockQuizData';
 
 // These functions mock and intercept API calls 
 // Individual tests have individual partner functions
 
+// Sign up handlers
 const successfulUserSignup: HttpHandler = http.post('http://127.0.0.1:3000/users', async ({ request }) => {
     const body = await request.json()
       return HttpResponse.json({
@@ -20,6 +22,7 @@ const emailInUse: HttpHandler = http.post('http://127.0.0.1:3000/users', async (
       }, { status: 401 });
 });
 
+// Login handlers
 const successfulLogin: HttpHandler = http.post('http://127.0.0.1:3000/users/authenticate', async ({request }) => {
   const body = await request.json()
     return HttpResponse.json({
@@ -55,6 +58,18 @@ const loginErrorThrown: HttpHandler = http.post('http://127.0.0.1:3000/users/aut
 });
 
 
+// Questions handler
+const createsRandomQuiz: HttpHandler = http.get('http://127.0.0.1:3000/questions', async () => { 
+    return HttpResponse.json({
+      questions: randomMockQuizQuestions
+    }, { status: 200 });
+});
+
+const createsCategoryQuiz: HttpHandler = http.get('http://127.0.0.1:3000/questions', async () => { 
+  return HttpResponse.json({
+    questions: sameCategoryQuizQuestions
+  }, { status: 200 });
+});
 
 
 
@@ -64,6 +79,8 @@ export const Handlers = [
   successfulLogin,
   userNotFound,
   passwordDoesNotMatch,
-  loginErrorThrown
+  loginErrorThrown,
+  createsRandomQuiz,
+  createsCategoryQuiz
 ];
 
