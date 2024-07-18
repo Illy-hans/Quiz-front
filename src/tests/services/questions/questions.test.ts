@@ -1,13 +1,10 @@
-import { describe, it, expect, beforeAll, afterEach, afterAll } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import getQuiz from '../../../services/questions';
 import { server } from '../../../mocks/mswSetup';
 import { Handlers } from '../../../mocks/handler';
 
 
 describe('questions', () => {
-    beforeAll(() => server.listen());
-    afterEach(() => server.resetHandlers());
-    afterAll(() => server.close());
 
     it('should return 5 random question objects', async () => {
         server.use(Handlers[6])
@@ -38,7 +35,6 @@ describe('questions', () => {
             expect(question).toHaveProperty('correct_answer');
             expect(question).toHaveProperty('incorrect_answers');
             });
-
 
     })
 });

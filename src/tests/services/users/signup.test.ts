@@ -1,12 +1,9 @@
-import { describe, it, expect, beforeAll, afterEach, afterAll } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { signUp } from '../../../services/users'; 
 import { server } from '../../../mocks/mswSetup';
 import { Handlers } from '../../../mocks/handler';
 
 describe('signUp', () => {
-    beforeAll(() => server.listen());
-    afterEach(() => server.resetHandlers());
-    afterAll(() => server.close());
 
     it('should return a token and message when the response status is 201', async () => {
         server.use(Handlers[0]);
