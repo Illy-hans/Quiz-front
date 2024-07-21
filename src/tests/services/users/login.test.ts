@@ -37,7 +37,7 @@ describe('login', () => {
         }
     });
 
-    it('should return an error when the password is incorrect', async () => {
+    it('should return an error when authentication fails', async () => {
         server.use(Handlers[5]);
 
         try {

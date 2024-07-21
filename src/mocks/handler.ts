@@ -65,12 +65,17 @@ const createsRandomQuiz: HttpHandler = http.get('http://127.0.0.1:3000/questions
     }, { status: 200 });
 });
 
-const createsCategoryQuiz: HttpHandler = http.get('http://127.0.0.1:3000/questions', async () => { 
-  return HttpResponse.json({
-    questions: sameCategoryQuizQuestions
-  }, { status: 200 });
-});
+const createsCategoryQuiz: HttpHandler = http.get('http://127.0.0.1:3000/questions', async ({request}) => { 
+  const url = new URL(request.url);
+  const category = url.searchParams.get('category');
 
+  if (!category) {
+    return HttpResponse.json({message: 'An error occurred'}, { status: 404 })
+  }
+    return HttpResponse.json({
+      questions: sameCategoryQuizQuestions
+    }, { status: 200 });
+});
 
 
 export const Handlers = [
