@@ -8,5 +8,5 @@ Welcome to Quizzordy(definitely not named after my favourite quiz show).
 - Vite
 - Tailwindcss & DaisyUI
 - Node
-- Vitest & Jest 
-[] Cypress for E2E testing. 
+- Vitest & [Mock Service Worker](https://mswjs.io/) for mocking API calls 
+- [] Cypress for E2E testing. 

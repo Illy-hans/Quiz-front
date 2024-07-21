@@ -1,5 +1,5 @@
 import { useState, MouseEvent } from "react";
-import { QuizQuestion } from "../services/questions";
+import { QuizQuestion } from "../../services/questions";
 import { Result } from "./result";
 import { CategorySelector } from "./categorySelector";
 
