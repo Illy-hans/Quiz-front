@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { signUp } from '../../../services/users'; 
+import { signUp } from '../../../services/authentication'; 
 import { server } from '../../../mocks/mswSetup';
 import { Handlers } from '../../../mocks/handler';
 

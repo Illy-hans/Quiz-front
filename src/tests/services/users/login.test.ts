@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { login, signUp } from '../../../services/users'; 
+import { login, signUp } from '../../../services/authentication'; 
 import { server } from '../../../mocks/mswSetup';
 import { Handlers } from '../../../mocks/handler';
 
@@ -46,8 +46,5 @@ describe('login', () => {
             expect(error.message).toBe('Received status 400 when logging in. Expected 201. Message: Authentication failed');
         }
     });
-
-
-
 
 });

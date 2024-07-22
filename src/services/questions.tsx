@@ -30,15 +30,12 @@ export default async function getQuiz(category: string | null): Promise<QuizQues
         const response: Response = await fetch(url.toString(), requestOptions);
 
         if (!response.ok) {
-            throw new Error(`Unable to fetching questions: ${response.statusText}`);
+            throw new Error(`Unable to fetch questions: ${response.statusText}`);
         }
 
         const data: QuizResponse = await response.json();
 
-        // console.log(data)
-        // console.log(data.questions)
         return data.questions;
-
 
     } catch (error) {
 

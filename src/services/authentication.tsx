@@ -57,6 +57,7 @@ export async function login(email: string, password: string): Promise<Response> 
                 `Received status ${response.status} when logging in. Expected 201. Message: ${data.message}`
                 );
             }
+            
     } catch (error) {
         console.error("Error:", error);
         throw error;

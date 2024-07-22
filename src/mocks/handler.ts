@@ -29,6 +29,7 @@ const successfulLogin: HttpHandler = http.post('http://127.0.0.1:3000/users/auth
       message: "Authentication successful",
       token: "example-token1",
       username: "example user",
+      user_id: "example id",
       body
     }, { status: 201 });
 });
