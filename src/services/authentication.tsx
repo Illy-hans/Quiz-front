@@ -32,8 +32,19 @@ export async function signUp(username: string, email: string, password: string):
         }
 }
 
+export interface AuthenticationResponse {
+    token: string,
+    user_id: string,
+    username: string, 
+    message: string,
+}
 
-export async function login(email: string, password: string): Promise<Response> {
+// The authentication response is extended as response.status is not part of the return parameter
+export interface ExtendedAuthenticationResponse extends AuthenticationResponse {
+    status: number;
+}
+
+export async function login(email: string, password: string): Promise<ExtendedAuthenticationResponse> {
     
     try {
         const requestOptions = {
@@ -48,7 +59,7 @@ export async function login(email: string, password: string): Promise<Response> 
         };
     
         const response: Response = await fetch(`${backendUrl}/users/authenticate`, requestOptions);
-        const data = await response.json();
+        const data: AuthenticationResponse = await response.json();
     
         if (response.status === 201) {
             return {...data, status: response.status};

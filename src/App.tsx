@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { Quiz } from './components/questions';
+import { Quiz } from './components/quiz/questions';
 import { QuizQuestion } from './services/questions'; //quiz interface
 import getQuiz from './services/questions'; //quiz fetching service
 
@@ -12,7 +12,7 @@ export default function App() {
   useEffect(() => {
     const fetchQuestions = async (): Promise<void> => {
         try {
-            const questionsData = await getQuiz(category);
+            const questionsData: QuizQuestion[] = await getQuiz(category);
             setQuestions(questionsData)
 
         } catch (error) {
