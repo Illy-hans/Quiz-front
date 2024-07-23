@@ -1,32 +1,16 @@
-import { useEffect, useState } from 'react';
 import './App.css';
-import { Quiz } from './components/quiz/questions';
-import { QuizQuestion } from './services/questions'; //quiz interface
-import getQuiz from './services/questions'; //quiz fetching service
-
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import './App.css';
+import QuizComponent from './components/quiz/quizComponent';
+import SignUpComponent from './components/authentication/signUp';
 export default function App() {
 
-  const [questions, setQuestions] = useState<QuizQuestion[] | undefined>(undefined);
-  const [category, setCategory] = useState<string>('');
-
-  useEffect(() => {
-    const fetchQuestions = async (): Promise<void> => {
-        try {
-            const questionsData: QuizQuestion[] = await getQuiz(category);
-            setQuestions(questionsData)
-
-        } catch (error) {
-        console.error('Error fetching questions:', error);
-      }
-  };
-  fetchQuestions();
-  }, [category]);
 
   return (
     <>
-      <div>
-        <Quiz questions={questions} setCategory={setCategory}/>
-      </div>
+    <SignUpComponent/>
+    <QuizComponent/>
     </>
   )
 }

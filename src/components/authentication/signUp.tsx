@@ -55,7 +55,7 @@ const SignUpComponent = () =>  {
                 {/* USERNAME FORM */}
                 {/* <label htmlFor="username">Username:</label> */}
                     <input
-                    className="input-sg"
+                    className="form-input"
                     placeholder="Username"
                     id="username"
                     type="text"
@@ -66,7 +66,7 @@ const SignUpComponent = () =>  {
                     {/* EMAIL FORM */}
                     {/* <label htmlFor="email">Email:</label> */}
                     <input
-                    className="input-sg"
+                    className="form-input"
                     placeholder="Email"
                     id="email"
                     type="email"
@@ -81,7 +81,7 @@ const SignUpComponent = () =>  {
                     {/* PASSWORD FORM */}
                     {/* <label htmlFor="password">Password:</label> */}
                     <input
-                    className="input-sg"
+                    className="form-input"
                     placeholder="A strong password"
                     id="password"
                     type="password"
@@ -94,15 +94,9 @@ const SignUpComponent = () =>  {
         
         
                     {/* BUTTON SUBMIT */}
-                    <input className="btn btn-signup" role="submit-button" id="submit" type="submit" value="Create!" />
+                    <input className="btn" role="submit-button" id="submit" type="submit" value="Create!" />
         
                 </form>
-        
-                    {/* BUTTON LOGIN
-                    <hr />
-                    <button className="btn btn-login">
-                        <Link to="/login" className="btn">Log In</Link>
-                    </button> */}
         
             </div>
             </>
