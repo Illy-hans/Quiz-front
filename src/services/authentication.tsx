@@ -61,11 +61,11 @@ export async function login(email: string, password: string): Promise<ExtendedAu
         const response: Response = await fetch(`${backendUrl}/users/authenticate`, requestOptions);
         const data: AuthenticationResponse = await response.json();
     
-        if (response.status === 201) {
+        if (response.status === 200) {
             return {...data, status: response.status};
         } else {
             throw new Error(
-                `Received status ${response.status} when logging in. Expected 201. Message: ${data.message}`
+                `Received status ${response.status} when logging in. Expected 200. Message: ${data.message}`
                 );
             }
             

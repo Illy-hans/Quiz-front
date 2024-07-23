@@ -55,7 +55,7 @@ const SignUpComponent = () =>  {
                 {/* USERNAME FORM */}
                 {/* <label htmlFor="username">Username:</label> */}
                     <input
-                    className="form-input"
+                    className="input"
                     placeholder="Username"
                     id="username"
                     type="text"
@@ -66,7 +66,7 @@ const SignUpComponent = () =>  {
                     {/* EMAIL FORM */}
                     {/* <label htmlFor="email">Email:</label> */}
                     <input
-                    className="form-input"
+                    className="input"
                     placeholder="Email"
                     id="email"
                     type="email"
@@ -81,12 +81,12 @@ const SignUpComponent = () =>  {
                     {/* PASSWORD FORM */}
                     {/* <label htmlFor="password">Password:</label> */}
                     <input
-                    className="form-input"
+                    className="input"
                     placeholder="A strong password"
                     id="password"
                     type="password"
                     // minLength="8"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    // pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                     title="Must contain at least one number, one uppercase and lowercase letter, and at least 8 or more characters"
                     // value={password}
                     onChange={handlePasswordChange}
